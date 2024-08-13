@@ -13,9 +13,9 @@ const screens = {
   ChallengeSelect
 }
 const dynamicProps = {
-  goToHome: () => { currentTab.value = 'Home' },
-  goToRegister: () => { currentTab.value = 'Register' },
-  goToLogin: () => { currentTab.value = 'Login' },
+  goToHome: () => currentTab.value = 'Home' ,
+  goToRegister: () => currentTab.value = 'Register' ,
+  goToLogin: () => currentTab.value = 'Login',
   goToChallengeSelect: () => currentTab.value = 'ChallengeSelect'
 }
 

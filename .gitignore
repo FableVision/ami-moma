@@ -48,3 +48,6 @@ RECOVER_*.fla
 
 # npm
 node_modules/
+
+.env
+*.log
