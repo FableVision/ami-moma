@@ -1,21 +1,55 @@
 <script setup>
+import { ref, onBeforeMount } from 'vue'
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore'
 import Button from '@/components/Button.vue';
+import db from '../firebase'
+import { store } from '@/store'
 
-defineProps({
+let user = ref({})
+let challenges = ref([])
+const props = defineProps({
     goToHome: Function
 })
+
+onBeforeMount(async () => {
+    const snapshot = await getDocs(collection(db, 'Challenges'));
+    snapshot.forEach((doc) => {
+        challenges.value.push(doc.data())
+    })
+
+    const docRef = doc(db, 'Users', store.username);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+        user.value.username = docSnap.data().username
+        user.value.name = docSnap.data().name
+        user.value.challengeResponses = docSnap.data().challengeResponses
+    }
+})
+
+function logOut() {
+    store.resetUser()
+    props.goToHome()
+}
+
+function hasCompletedChallenge(challenge) {
+    return user.value.challengeResponses[challenge.id] !== undefined && user.value.challengeResponses[challenge.id].length > 0
+}
+
+function hasCompletedAllChallenges() {
+    return challenges.value.every((challenge) => {
+        return hasCompletedChallenge(challenge)
+    })
+}
 
 </script>
 
 <template>
     <h1>Which challenge card are you working on?</h1>
-    <div class="challengeButtonContainer">
-        <Button>1</Button>
-        <Button>2</Button>
-        <Button>3</Button>
-        <Button>4</Button>
-        <Button>5</Button>
+    <div class="challengeButtonContainer" v-if="user.username">
+        <Button v-for="c in challenges" :key="c.id" :disabled="hasCompletedChallenge(c)">{{ c.id }}</Button>
     </div>
-    <Button v-if="false">Complete</Button>
-    <Button v-else :click="goToHome">Done for now</Button>
+    <div v-if="user.username">
+        <Button v-if="hasCompletedAllChallenges()">Complete</Button>
+        <Button v-else :click="logOut">Done for now</Button>
+    </div>
 </template>

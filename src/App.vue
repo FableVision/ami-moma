@@ -4,7 +4,7 @@ import Home from './screens/Home.vue'
 import Register from './screens/Register.vue';
 import Login from './screens/Login.vue';
 import ChallengeSelect from './screens/ChallengeSelect.vue';
- 
+
 let currentTab = ref('Home')
 const screens = {
   Home,
@@ -18,7 +18,6 @@ const dynamicProps = {
   goToLogin: () => currentTab.value = 'Login',
   goToChallengeSelect: () => currentTab.value = 'ChallengeSelect'
 }
-
 </script>
 
 <template>
