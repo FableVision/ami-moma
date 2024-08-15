@@ -38,12 +38,17 @@ function hasCompletedAllChallenges() {
     })
 }
 
+function selectChallenge(challengeId) {
+    store.setChallenge(challengeId)
+    store.goToChallengeSubmit()
+}
+
 </script>
 
 <template>
     <h1>Which challenge card are you working on?</h1>
     <div class="challengeButtonContainer" v-if="user.username">
-        <Button v-for="c in challenges" :key="c.id" :disabled="hasCompletedChallenge(c)">{{ c.id }}</Button>
+        <Button v-for="c in challenges" :key="c.id" :disabled="hasCompletedChallenge(c)" :click="() => selectChallenge(c.id)">{{ c.id }}</Button>
     </div>
     <div v-if="user.username">
         <Button v-if="hasCompletedAllChallenges()">Complete</Button>

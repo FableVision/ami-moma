@@ -8,13 +8,12 @@ defineProps({
 })
 
 const input = ref('')
-
 </script>
 
 <template>
     <h1>{{ questionText }}</h1>
     <textarea v-model="input"></textarea>
-    <Button :click="() => {$emit('submit', input)}">{{ btnText }}</Button>
+    <Button :click="() => {$emit('submit', input)}" :disabled="input === ''">{{ btnText }}</Button>
 </template>
 
 <style scoped>

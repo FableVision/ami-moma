@@ -5,13 +5,14 @@ import Register from './screens/Register.vue';
 import Login from './screens/Login.vue';
 import ChallengeSelect from './screens/ChallengeSelect.vue';
 import { store } from './store';
+import ChallengeSubmit from './screens/ChallengeSubmit.vue';
 
-let currentTab = ref('Home')
 const screens = {
   Home,
   Register,
   Login,
-  ChallengeSelect
+  ChallengeSelect,
+  ChallengeSubmit
 }
 </script>
 

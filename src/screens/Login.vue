@@ -17,7 +17,6 @@ async function handleSubmitUsername(input) {
         showAlert.value = true;
     }
 }
-
 </script>
 
 <template>
