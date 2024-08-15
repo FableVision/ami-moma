@@ -13,6 +13,7 @@ onBeforeMount(async () => {
     snapshot.forEach((doc) => {
         challenges.value.push(doc.data())
     })
+    challenges.value.sort((a, b) => a.id - b.id)
 
     const docRef = doc(db, 'Users', store.username);
     const docSnap = await getDoc(docRef);
@@ -51,7 +52,7 @@ function selectChallenge(challengeId) {
         <Button v-for="c in challenges" :key="c.id" :disabled="hasCompletedChallenge(c)" :click="() => selectChallenge(c.id)">{{ c.id }}</Button>
     </div>
     <div v-if="user.username">
-        <Button v-if="hasCompletedAllChallenges()">Complete</Button>
+        <Button v-if="hasCompletedAllChallenges()" :click="() => store.goToChallengeComplete()">Complete</Button>
         <Button v-else :click="logOut">Done for now</Button>
     </div>
 </template>

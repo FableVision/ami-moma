@@ -19,6 +19,9 @@ export const store = reactive({
     goToChallengeSubmit() {
         this.currentScreen = 'ChallengeSubmit'
     },
+    goToChallengeComplete() {
+        this.currentScreen = 'ChallengeComplete'
+    },
     setUser(username) {
         this.username = username
     },

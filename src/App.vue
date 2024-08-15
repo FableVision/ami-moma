@@ -1,18 +1,20 @@
 <script setup>
 import { ref } from 'vue'
+import { store } from './store';
 import Home from './screens/Home.vue'
 import Register from './screens/Register.vue';
 import Login from './screens/Login.vue';
 import ChallengeSelect from './screens/ChallengeSelect.vue';
-import { store } from './store';
 import ChallengeSubmit from './screens/ChallengeSubmit.vue';
+import ChallengeComplete from './screens/ChallengeComplete.vue';
 
 const screens = {
   Home,
   Register,
   Login,
   ChallengeSelect,
-  ChallengeSubmit
+  ChallengeSubmit,
+  ChallengeComplete
 }
 </script>
 
