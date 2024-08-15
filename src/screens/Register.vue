@@ -14,12 +14,7 @@ const user = reactive({
     }
 })
 
-const props = defineProps({
-    goToChallengeSelect: Function
-})
-
 function handleSubmitName(input) {
-    console.log(input)
     user.name = input
 }
 
@@ -36,7 +31,7 @@ async function handleSubmitUsername(input) {
             console.error("Error adding document: ", e);
         }
         store.setUser(user.username)
-        props.goToChallengeSelect()
+        store.goToChallengeSelect()
     }
 }
 </script>

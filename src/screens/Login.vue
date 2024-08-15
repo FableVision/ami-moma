@@ -6,16 +6,13 @@ import db from '../firebase'
 import { store } from '@/store'
 
 let showAlert = ref(false)
-const props = defineProps({
-    goToChallengeSelect: Function
-})
 
 async function handleSubmitUsername(input) {
     const docRef = doc(db, 'Users', input);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
         store.setUser(docSnap.data().username)
-        props.goToChallengeSelect()
+        store.goToChallengeSelect()
     } else {
         showAlert.value = true;
     }

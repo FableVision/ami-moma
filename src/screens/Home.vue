@@ -1,16 +1,11 @@
 <script setup>
 import Button from '../components/Button.vue'
-
-defineProps({
-    goToRegister: Function,
-    goToLogin: Function
-})
-
+import { store } from '@/store';
 </script>
 
 <template>
-    <Button :click="goToRegister">Register</Button>
-    <Button :click="goToLogin">Log In</Button>
+    <Button :click="() => store.goToRegister()">Register</Button>
+    <Button :click="() => store.goToLogin()">Log In</Button>
 </template>
 
 <style scoped>

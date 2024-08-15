@@ -7,9 +7,6 @@ import { store } from '@/store'
 
 let user = ref({})
 let challenges = ref([])
-const props = defineProps({
-    goToHome: Function
-})
 
 onBeforeMount(async () => {
     const snapshot = await getDocs(collection(db, 'Challenges'));
@@ -28,7 +25,7 @@ onBeforeMount(async () => {
 
 function logOut() {
     store.resetUser()
-    props.goToHome()
+    store.goToHome()
 }
 
 function hasCompletedChallenge(challenge) {

@@ -4,6 +4,7 @@ import Home from './screens/Home.vue'
 import Register from './screens/Register.vue';
 import Login from './screens/Login.vue';
 import ChallengeSelect from './screens/ChallengeSelect.vue';
+import { store } from './store';
 
 let currentTab = ref('Home')
 const screens = {
@@ -12,19 +13,13 @@ const screens = {
   Login,
   ChallengeSelect
 }
-const dynamicProps = {
-  goToHome: () => currentTab.value = 'Home' ,
-  goToRegister: () => currentTab.value = 'Register' ,
-  goToLogin: () => currentTab.value = 'Login',
-  goToChallengeSelect: () => currentTab.value = 'ChallengeSelect'
-}
 </script>
 
 <template>
   <header>
   </header>
   <main>
-    <component v-bind:is="screens[currentTab]" v-bind="dynamicProps"></component>
+    <component v-bind:is="screens[store.currentScreen]"></component>
   </main>
 </template>
 
