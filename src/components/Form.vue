@@ -12,6 +12,7 @@ const textarea = ref(null)
 
 onMounted(() => {
     textarea.value.focus()
+    textarea.value.select()
 })
 
 </script>
@@ -19,7 +20,7 @@ onMounted(() => {
 <template>
     <h1>{{ questionText }}</h1>
     <textarea v-model="input" ref="textarea"></textarea>
-    <Button :click="() => {$emit('submit', input)}" :disabled="input === ''">{{ btnText }}</Button>
+    <Button :click="() => {$emit('submit', input); input = ''}" :disabled="input === ''">{{ btnText }}</Button>
 </template>
 
 <style scoped>

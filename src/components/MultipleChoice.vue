@@ -32,5 +32,11 @@ input {
 .multiple-choice-container {
     display: flex;
     gap: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+label {
+    font-size: large;
 }
 </style>
