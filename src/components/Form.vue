@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onUpdated, onMounted } from 'vue'
 import Button from './Button.vue';
 
 defineProps({
@@ -13,6 +13,10 @@ const textarea = ref(null)
 onMounted(() => {
     textarea.value.focus()
     textarea.value.select()
+})
+
+onUpdated(() => {
+    textarea.value.focus()
 })
 
 </script>

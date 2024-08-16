@@ -20,7 +20,7 @@ const screens = {
 
 <template>
   <header>
-    <h1>Mission MoMA</h1>
+    <h1>Line Collector</h1>
   </header>
   <main>
     <component v-bind:is="screens[store.currentScreen]"></component>

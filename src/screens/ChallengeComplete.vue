@@ -67,8 +67,9 @@ function generateSharePDF() {
     })
 
     if (navigator.share) {
-        const blobPDF = new Blob([ doc.output('blob') ], { type : 'application/pdf'})
-        navigator.share(blobPDF)
+        const pdf = new File([doc.output('arraybuffer')], "story.pdf", { type: "application/pdf" });
+        const files = [pdf]
+        navigator.share({ files })
     } else {
         doc.output('dataurlnewwindow')
     }
