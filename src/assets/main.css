@@ -1,8 +1,14 @@
 @import './base.css';
 
+@font-face {
+  font-family: 'MoMA Sans-Bold';
+  src: url('/public/fonts/MoMA Sans-Bold.otf') format('opentype');
+}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
+  font-family: 'MoMA Sans-Bold';
 }

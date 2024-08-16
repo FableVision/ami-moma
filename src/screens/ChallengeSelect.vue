@@ -48,7 +48,7 @@ function selectChallenge(challengeId) {
 
 <template>
     <h1>Which challenge card are you working on?</h1>
-    <div class="challengeButtonContainer" v-if="user.username">
+    <div class="challenge-button-container" v-if="user.username">
         <Button v-for="c in challenges" :key="c.id" :disabled="hasCompletedChallenge(c)" :click="() => selectChallenge(c.id)">{{ c.id }}</Button>
     </div>
     <div v-if="user.username">
@@ -56,3 +56,10 @@ function selectChallenge(challengeId) {
         <Button v-else :click="logOut">Done for now</Button>
     </div>
 </template>
+
+<style>
+.challenge-button-container {
+    display: flex;
+    gap: 10px;
+}
+</style>

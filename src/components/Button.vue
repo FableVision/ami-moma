@@ -14,5 +14,7 @@ defineProps({
 <style scoped>
 button {
     font-size: medium;
+    font-family: 'MoMA Sans-Bold';
+    padding: 10px;
 }
 </style>
