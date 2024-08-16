@@ -20,6 +20,7 @@ const screens = {
 
 <template>
   <header>
+    <h1>Mission MoMA</h1>
   </header>
   <main>
     <component v-bind:is="screens[store.currentScreen]"></component>
@@ -27,7 +28,12 @@ const screens = {
 </template>
 
 <style scoped>
+header {
+  text-align: center;
+}
+
 main {
+  margin: 20px 0;
   display: flex;
   flex-direction: column;
   align-items: center;

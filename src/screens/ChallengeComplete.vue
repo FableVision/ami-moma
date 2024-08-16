@@ -3,6 +3,7 @@ import { onBeforeMount, ref } from 'vue'
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore'
 import { store } from '@/store'
 import db from '../firebase'
+import { jsPDF } from  'jspdf'
 import Button from '@/components/Button.vue'
 
 let name = ''
@@ -29,10 +30,10 @@ onBeforeMount(async () => {
     }
 })
 
-function templatedSentence(sentence) {
+function templatedSentence(sentence, pageIndex) {
     const sentenceVariables = {}
-    if (currentPageIndex.value > 0) {
-        responses.value[currentPageIndex.value - 1].forEach((variable, index) => {
+    if (pageIndex > 0) {
+        responses.value[pageIndex - 1].forEach((variable, index) => {
             sentenceVariables[index] = formattedString(variable)
         })
     } else {
@@ -49,12 +50,58 @@ function formattedString(string) {
     return words.join(', ') + ', and ' + lastWord
 }
 
+function generateSharePDF() {
+    const doc = new jsPDF();
+    doc.setFontSize(30);
+    storyTemplates.value.forEach((page, pageIndex) => {
+        const sentences = []
+        page.sentences.forEach((sentence) => {
+            sentences.push(...doc.splitTextToSize(templatedSentence(sentence, pageIndex), 180))
+        })
+        doc.text(sentences, 15, 20, {
+            lineHeightFactor: 1.5
+        });
+        if (pageIndex < storyTemplates.value.length - 1) {
+            doc.addPage()
+        }
+    })
+
+    if (navigator.share) {
+        const blobPDF = new Blob([ doc.output('blob') ], { type : 'application/pdf'})
+        navigator.share(blobPDF)
+    } else {
+        doc.output('dataurlnewwindow')
+    }
+}
+
+function finish() {
+    store.resetUser()
+    store.goToHome()
+}
 </script>
 
 <template>
 <div v-if="storyTemplates.length > 0 && responses.length > 0">
-    <h2 v-for="sentence in storyTemplates[currentPageIndex].sentences">{{ templatedSentence(sentence) }}</h2>
-    <Button v-if="currentPageIndex < storyTemplates.length - 1" :click="() => {currentPageIndex++}">Next</Button>
-    <Button v-else>Share</Button>
+    <h2 v-for="sentence in storyTemplates[currentPageIndex].sentences">{{ templatedSentence(sentence, currentPageIndex) }}</h2>
+    <div class="button-container">    
+        <Button v-if="currentPageIndex < storyTemplates.length - 1" :click="() => {currentPageIndex++}">Next</Button>
+        <div v-else class="button-row">
+            <Button :click="finish">Return Home</Button>
+            <Button :click="generateSharePDF">Share</Button>
+        </div>
+    </div>
 </div>
 </template>
+
+<style>
+.button-container {
+    display: flex;
+    margin: 15px 0;
+    justify-content: space-around;
+}
+
+.button-row {
+    display: flex;
+    gap: 10px;
+}
+</style>

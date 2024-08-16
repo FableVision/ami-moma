@@ -25,6 +25,10 @@ const input = ref([])
 </template>
 
 <style scoped>
+input {
+    margin: 0 5px;
+}
+
 .multiple-choice-container {
     display: flex;
     gap: 10px;

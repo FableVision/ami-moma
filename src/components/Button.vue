@@ -12,4 +12,7 @@ defineProps({
 </template>
 
 <style scoped>
+button {
+    font-size: medium;
+}
 </style>
