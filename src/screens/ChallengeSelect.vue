@@ -48,8 +48,8 @@ function hasCompletedChallenge(challenge) {
     return user.value.challengeResponses[challenge.id] !== undefined && user.value.challengeResponses[challenge.id].length > 0
 }
 
-function hasCompletedAllChallenges() {
-    return challenges.value.every((challenge) => {
+function hasCompletedAnyChallenges() {
+    return challenges.value.some((challenge) => {
         return hasCompletedChallenge(challenge)
     })
 }
@@ -67,9 +67,9 @@ function selectChallenge(challengeId) {
     <div class="challenge-button-container" v-if="user.username">
         <Button v-for="c in challenges" :key="c.id" :disabled="hasCompletedChallenge(c)" :click="() => selectChallenge(c.id)">{{ c.id }}</Button>
     </div>
-    <div v-if="user.username">
-        <Button v-if="hasCompletedAllChallenges()" :click="() => { cancelTimeout(); store.goToChallengeComplete() }">Complete</Button>
-        <Button v-else :click="logOut">Done for now</Button>
+    <div class="action-button-container" v-if="user.username">
+        <Button :click="logOut">Done for now</Button>
+        <Button :disabled="!hasCompletedAnyChallenges()" :click="() => { cancelTimeout(); store.goToChallengeComplete() }">Complete my collection!</Button>
     </div>
 </template>
 
@@ -77,5 +77,11 @@ function selectChallenge(challengeId) {
 .challenge-button-container {
     display: flex;
     gap: 10px;
+}
+
+.action-button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 </style>

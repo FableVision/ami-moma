@@ -9,25 +9,28 @@ import Button from '@/components/Button.vue'
 let name = ''
 let storyTemplates = ref([])
 let responses = ref([])
+let challengeKeys = []
 const currentPageIndex = ref(0)
 const template = (tpl, args) => tpl.replace(/\${(\w+)}/g, (_, v) => args[v]);
 
 onBeforeMount(async () => {
-    const snapshot = await getDocs(collection(db, 'StoryTemplates'));
-    snapshot.forEach((doc) => {
-        storyTemplates.value.push(doc.data())
-    })
-    storyTemplates.value.sort((a, b) => a.id - b.id)
-
     const docSnap = await getDoc(doc(db, 'Users', store.userId))
     if (docSnap.exists()) {
         name = docSnap.data().username
-        const challengeKeys = Object.keys(docSnap.data().challengeResponses)
+        challengeKeys = Object.keys(docSnap.data().challengeResponses)
         challengeKeys.sort()
         challengeKeys.forEach((challengeId) => {
             responses.value.push(docSnap.data().challengeResponses[challengeId])
         })
     }
+
+    const snapshot = await getDocs(collection(db, 'StoryTemplates'));
+    snapshot.forEach((doc) => {
+        if (doc.data().id === 0 || doc.data().id === 8 || challengeKeys.includes(doc.data().id.toString())) {
+            storyTemplates.value.push(doc.data())
+        }
+    })
+    storyTemplates.value.sort((a, b) => a.id - b.id)
 })
 
 function templatedSentence(sentence, pageIndex) {
