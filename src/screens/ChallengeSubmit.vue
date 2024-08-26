@@ -5,6 +5,7 @@ import { store } from '@/store'
 import { doc, getDocs, query, collection, where, updateDoc } from 'firebase/firestore';
 import Form from '@/components/Form.vue';
 import MultipleChoice from '@/components/MultipleChoice.vue';
+import Button from '@/components/Button.vue';
 
 const currentQuestionIndex = ref(0)
 const questions = ref([])
@@ -23,20 +24,36 @@ async function incrementQuestion(input) {
         currentQuestionIndex.value++
     } else {
         store.goToChallengeSelect()
-        await updateDoc(doc(db, 'Users', store.username), `challengeResponses.${store.currentChallengeId}`, responses)
+        await updateDoc(doc(db, 'Users', store.userId), `challengeResponses.${store.currentChallengeId}`, responses)
     }
 }
 
+function logOut() {
+    store.resetUser()
+    store.goToHome()
+}
 </script>
 
 <template>
+<div class="header">
+    <Button :click="() => store.goToChallengeSelect()">‹</Button>
+    <Button :click="logOut">Done for now</Button>
+</div>
 <div class="form-container" v-if="questions.length > 0 && currentQuestionIndex < questions.length">
-    <Form v-if="questions[currentQuestionIndex]['options'] === undefined" btn-text="OK" :question-text="questions[currentQuestionIndex].question" @submit="incrementQuestion"></Form>
-    <MultipleChoice v-else btn-text="OK" :question-text="questions[currentQuestionIndex].question" :options="questions[currentQuestionIndex]['options']" :max-choices="questions[currentQuestionIndex]['maxChoices'] ?? 0" @submit="incrementQuestion"></MultipleChoice>
+    <Form v-if="questions[currentQuestionIndex]['options'] === undefined" btn-text="✔" :question-text="questions[currentQuestionIndex].question" @submit="incrementQuestion"></Form>
+    <MultipleChoice v-else btn-text="✔" :question-text="questions[currentQuestionIndex].question" :options="questions[currentQuestionIndex]['options']" :max-choices="questions[currentQuestionIndex]['maxChoices'] ?? 0" @submit="incrementQuestion"></MultipleChoice>
 </div>
 </template>
 
 <style>
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    padding: 20px;
+}
 .form-container {
     display: flex;
     flex-direction: column;

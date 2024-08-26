@@ -19,7 +19,7 @@ onBeforeMount(async () => {
     })
     storyTemplates.value.sort((a, b) => a.id - b.id)
 
-    const docSnap = await getDoc(doc(db, 'Users', store.username))
+    const docSnap = await getDoc(doc(db, 'Users', store.userId))
     if (docSnap.exists()) {
         name = docSnap.data().name
         const challengeKeys = Object.keys(docSnap.data().challengeResponses)

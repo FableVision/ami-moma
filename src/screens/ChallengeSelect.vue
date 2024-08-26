@@ -15,7 +15,7 @@ onBeforeMount(async () => {
     })
     challenges.value.sort((a, b) => a.id - b.id)
 
-    const docRef = doc(db, 'Users', store.username);
+    const docRef = doc(db, 'Users', store.userId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
         user.value.username = docSnap.data().username
@@ -47,7 +47,7 @@ function selectChallenge(challengeId) {
 </script>
 
 <template>
-    <h1>Which challenge card are you working on?</h1>
+    <h1>{{ store.userDisplayName }}, which challenge card are you working on?</h1>
     <div class="challenge-button-container" v-if="user.username">
         <Button v-for="c in challenges" :key="c.id" :disabled="hasCompletedChallenge(c)" :click="() => selectChallenge(c.id)">{{ c.id }}</Button>
     </div>

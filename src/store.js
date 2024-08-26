@@ -3,7 +3,8 @@ import { reactive } from 'vue'
 export const store = reactive({
     currentScreen: 'Home',
     currentChallengeId: 0,
-    username: '',
+    userId: '',
+    userDisplayName: '',
     goToHome() {
         this.currentScreen = 'Home'
     },
@@ -22,11 +23,15 @@ export const store = reactive({
     goToChallengeComplete() {
         this.currentScreen = 'ChallengeComplete'
     },
-    setUser(username) {
-        this.username = username
+    setUserId(userId) {
+        this.userId = userId
+    },
+    setUserDisplayName(name) {
+        this.userDisplayName = name
     },
     resetUser() {
-        this.username = ''
+        this.userId = ''
+        this.userDisplayName = ''
     },
     setChallenge(id) {
         this.currentChallengeId = id

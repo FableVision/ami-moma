@@ -7,37 +7,32 @@ import { store } from '@/store'
 
 let showAlert = ref(false)
 const user = reactive({
-    name: '',
     username: '',
     challengeResponses: {
         // 1: [] // challengeId: array of responses
     }
 })
 
-function handleSubmitName(input) {
-    user.name = input
-}
-
 async function handleSubmitUsername(input) {
-    const docRef = doc(db, 'Users', input);
+    const docRef = doc(db, 'Users', input.trim().toLowerCase());
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
         showAlert.value = true;
     } else {
-        user.username = input
+        user.username = input.trim()
         try {
-            await setDoc(doc(db, "Users", user.username), user);
+            await setDoc(doc(db, "Users", user.username.toLowerCase()), user);
         } catch (e) {
             console.error("Error adding document: ", e);
         }
-        store.setUser(user.username)
+        store.setUserId(user.username.toLowerCase())
+        store.setUserDisplayName(user.username)
         store.goToChallengeSelect()
     }
 }
 </script>
 
 <template>
-    <Form v-if="user.name === ''" btn-text="Enter" question-text="What are your names?" @submit="handleSubmitName"></Form>
-    <Form v-else btn-text="Enter" question-text="What's your username? Pick something unique." @submit="handleSubmitUsername"></Form>
-    <p v-if="showAlert">That username is already taken. Try another one!</p>
+    <Form btn-text="✔" question-text="What's your team name?" @submit="handleSubmitUsername"></Form>
+    <p v-if="showAlert">Sorry! That team name is already in use. Pick another one!</p>
 </template>

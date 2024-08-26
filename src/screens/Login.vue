@@ -8,10 +8,11 @@ import { store } from '@/store'
 let showAlert = ref(false)
 
 async function handleSubmitUsername(input) {
-    const docRef = doc(db, 'Users', input);
+    const docRef = doc(db, 'Users', input.trim().toLowerCase());
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-        store.setUser(docSnap.data().username)
+        store.setUserId(docSnap.data().username.toLowerCase())
+        store.setUserDisplayName(docSnap.data().username)
         store.goToChallengeSelect()
     } else {
         showAlert.value = true;
@@ -20,6 +21,6 @@ async function handleSubmitUsername(input) {
 </script>
 
 <template>
-    <Form btn-text="Enter" question-text="What's your username?" @submit="handleSubmitUsername"></Form>
-    <p v-if="showAlert">Hmm, we couldn't find an agent with that username. Did you enter it correctly?</p>
+    <Form btn-text="✔" question-text="What's your team name?" @submit="handleSubmitUsername"></Form>
+    <p v-if="showAlert">We don't have a team with that name. Try again!</p>
 </template>
