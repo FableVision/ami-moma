@@ -109,4 +109,8 @@ function finish() {
     display: flex;
     gap: 10px;
 }
+
+h2 {
+    line-height: 2;
+}
 </style>

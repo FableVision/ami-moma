@@ -13,7 +13,7 @@ const input = ref([])
 </script>
 
 <template>
-    <h1>{{ questionText.replaceAll("\\n", "\n\n") }}</h1>
+    <h1>{{ questionText.replaceAll("\\n", "\n") }}</h1>
     <div class="multiple-choice-container">
         <label v-for="option in options">
             <input v-if="maxChoices === 1" type="radio" :value="option" v-model="input[0]"/>
@@ -27,6 +27,7 @@ const input = ref([])
 <style scoped>
 h1 {
     white-space: pre-line;
+    line-height: 2;
 }
 
 input {
