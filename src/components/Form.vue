@@ -23,7 +23,7 @@ onUpdated(() => {
 
 <template>
     <h1>{{ questionText.replaceAll("\\n", "\n\n") }}</h1>
-    <textarea v-model="input" ref="textarea"></textarea>
+    <textarea v-model="input" ref="textarea" autocapitalize="off"></textarea>
     <Button :click="() => {$emit('submit', input); input = ''}" :disabled="input === ''">{{ btnText }}</Button>
 </template>
 

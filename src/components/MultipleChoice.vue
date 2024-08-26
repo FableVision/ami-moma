@@ -13,7 +13,7 @@ const input = ref([])
 </script>
 
 <template>
-    <h1>{{ questionText }}</h1>
+    <h1>{{ questionText.replaceAll("\\n", "\n\n") }}</h1>
     <div class="multiple-choice-container">
         <label v-for="option in options">
             <input v-if="maxChoices === 1" type="radio" :value="option" v-model="input[0]"/>
@@ -21,7 +21,7 @@ const input = ref([])
             <label :for="option">{{ option }}</label>
         </label>
     </div>
-    <Button :click="() => {$emit('submit', input.toString()); input.length = 0}" :disabled="input.length === 0">{{ btnText }}</Button>
+    <Button :click="() => {$emit('submit', input.toString().toLowerCase()); input.length = 0}" :disabled="input.length === 0">{{ btnText }}</Button>
 </template>
 
 <style scoped>

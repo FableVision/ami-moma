@@ -32,18 +32,19 @@ onBeforeMount(async () => {
 
 function templatedSentence(sentence, pageIndex) {
     const sentenceVariables = {}
-    if (pageIndex > 0) {
+    if (pageIndex === 0) {
+        sentenceVariables[0] = name
+    } else if (pageIndex > 0 && pageIndex < responses.value.length) {
         responses.value[pageIndex - 1].forEach((variable, index) => {
             sentenceVariables[index] = formattedString(variable)
         })
-    } else {
-        sentenceVariables[0] = name
     }
+    
     return template(sentence, sentenceVariables)
 }
 
 function formattedString(string) {
-    const words = string.toLowerCase().split(',')
+    const words = string.split(',')
     if (words.length === 1) return words[0].trim()
     if (words.length === 2) return words.join(' and ')
     const lastWord = words.pop()
