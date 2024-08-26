@@ -21,7 +21,7 @@ onBeforeMount(async () => {
 
     const docSnap = await getDoc(doc(db, 'Users', store.userId))
     if (docSnap.exists()) {
-        name = docSnap.data().name
+        name = docSnap.data().username
         const challengeKeys = Object.keys(docSnap.data().challengeResponses)
         challengeKeys.sort()
         challengeKeys.forEach((challengeId) => {
