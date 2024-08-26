@@ -7,6 +7,7 @@ import { store } from '@/store'
 
 let user = ref({})
 let challenges = ref([])
+let timeoutId = null
 
 onBeforeMount(async () => {
     const snapshot = await getDocs(collection(db, 'Challenges'));
@@ -25,12 +26,20 @@ onBeforeMount(async () => {
 })
 
 onMounted(() => {
-    setTimeout(() => {
+    timeoutId = setTimeout(() => {
         logOut()
     }, 20000)
 })
 
+function cancelTimeout() {
+    if (timeoutId) {
+        clearTimeout(timeoutId)
+        timeoutId = null
+    }
+}
+
 function logOut() {
+    cancelTimeout()
     store.resetUser()
     store.goToHome()
 }
@@ -46,6 +55,7 @@ function hasCompletedAllChallenges() {
 }
 
 function selectChallenge(challengeId) {
+    cancelTimeout()
     store.setChallenge(challengeId)
     store.goToChallengeSubmit()
 }
@@ -58,7 +68,7 @@ function selectChallenge(challengeId) {
         <Button v-for="c in challenges" :key="c.id" :disabled="hasCompletedChallenge(c)" :click="() => selectChallenge(c.id)">{{ c.id }}</Button>
     </div>
     <div v-if="user.username">
-        <Button v-if="hasCompletedAllChallenges()" :click="() => store.goToChallengeComplete()">Complete</Button>
+        <Button v-if="hasCompletedAllChallenges()" :click="() => { cancelTimeout(); store.goToChallengeComplete() }">Complete</Button>
         <Button v-else :click="logOut">Done for now</Button>
     </div>
 </template>

@@ -22,7 +22,7 @@ onUpdated(() => {
 </script>
 
 <template>
-    <h1>{{ questionText.replaceAll("\\n", "\n") }}</h1>
+    <h1>{{ questionText.replaceAll("\\n", "\n\n") }}</h1>
     <textarea v-model="input" ref="textarea"></textarea>
     <Button :click="() => {$emit('submit', input); input = ''}" :disabled="input === ''">{{ btnText }}</Button>
 </template>
@@ -30,5 +30,10 @@ onUpdated(() => {
 <style scoped>
 textarea {
     font-size: large;
+}
+
+h1 {
+    white-space: pre-line;
+    text-align: center;
 }
 </style>
