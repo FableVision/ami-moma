@@ -27,7 +27,6 @@ const input = ref([])
 <style scoped>
 h1 {
     white-space: pre-line;
-    text-align: center;
 }
 
 input {

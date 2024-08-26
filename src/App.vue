@@ -38,5 +38,6 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 15px;
+  text-align: center;
 }
 </style>

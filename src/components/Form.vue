@@ -34,6 +34,5 @@ textarea {
 
 h1 {
     white-space: pre-line;
-    text-align: center;
 }
 </style>
