@@ -25,6 +25,11 @@ const input = ref([])
 </template>
 
 <style scoped>
+h1 {
+    white-space: pre-line;
+    text-align: center;
+}
+
 input {
     margin: 0 5px;
 }

@@ -34,12 +34,12 @@ function templatedSentence(sentence, pageIndex) {
     const sentenceVariables = {}
     if (pageIndex === 0) {
         sentenceVariables[0] = name
-    } else if (pageIndex > 0 && pageIndex < responses.value.length) {
+    } else if (pageIndex > 0 && pageIndex <= responses.value.length) {
         responses.value[pageIndex - 1].forEach((variable, index) => {
             sentenceVariables[index] = formattedString(variable)
         })
     }
-    
+
     return template(sentence, sentenceVariables)
 }
 
