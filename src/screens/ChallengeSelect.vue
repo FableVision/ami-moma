@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeMount } from 'vue'
+import { ref, onBeforeMount, onMounted } from 'vue'
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore'
 import Button from '@/components/Button.vue';
 import db from '../firebase'
@@ -22,6 +22,12 @@ onBeforeMount(async () => {
         user.value.name = docSnap.data().name
         user.value.challengeResponses = docSnap.data().challengeResponses
     }
+})
+
+onMounted(() => {
+    setTimeout(() => {
+        logOut()
+    }, 20000)
 })
 
 function logOut() {

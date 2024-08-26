@@ -36,7 +36,7 @@ function logOut() {
 
 <template>
 <div class="header">
-    <Button :click="() => store.goToChallengeSelect()">‹</Button>
+    <span class="nav-back"><Button :click="() => store.goToChallengeSelect()">‹</Button>Challenge {{ store.currentChallengeId }}</span>
     <Button :click="logOut">Done for now</Button>
 </div>
 <div class="form-container" v-if="questions.length > 0 && currentQuestionIndex < questions.length">
@@ -54,6 +54,11 @@ function logOut() {
     top: 0;
     padding: 20px;
 }
+
+.nav-back button {
+    margin-right: 10px;
+}
+
 .form-container {
     display: flex;
     flex-direction: column;
