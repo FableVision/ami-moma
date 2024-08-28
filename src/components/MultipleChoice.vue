@@ -17,7 +17,7 @@ const input = ref([])
     <div class="multiple-choice-container">
         <label v-for="option in options">
             <input v-if="maxChoices === 1" type="radio" :value="option" v-model="input[0]"/>
-            <input v-else type="checkbox" :id="option" :value="option" v-model="input" :style="{ gridTemplateColumns: repeat(2, 1fr) }">
+            <input v-else type="checkbox" :id="option" :value="option" v-model="input" :style="{ gridTemplateColumns: 'repeat(2, 1fr)' }">
             <label :for="option">{{ option }}</label>
         </label>
     </div>

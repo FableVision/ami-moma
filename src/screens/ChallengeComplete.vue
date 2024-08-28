@@ -7,6 +7,7 @@ import { jsPDF } from  'jspdf'
 import Button from '@/components/Button.vue'
 
 let name = ''
+const seenIntro = ref(false)
 let storyTemplates = ref([])
 let responses = ref([])
 let challengeKeys = []
@@ -86,7 +87,7 @@ function finish() {
 </script>
 
 <template>
-<div v-if="storyTemplates.length > 0 && responses.length > 0">
+<div v-if="seenIntro && storyTemplates.length > 0 && responses.length > 0">
     <h2 v-for="sentence in storyTemplates[currentPageIndex].sentences">{{ templatedSentence(sentence, currentPageIndex) }}</h2>
     <div class="button-container">    
         <Button v-if="currentPageIndex < storyTemplates.length - 1" :click="() => {currentPageIndex++}" variant="ok">Next</Button>
@@ -95,6 +96,11 @@ function finish() {
             <Button :click="generateSharePDF" variant="navigate">Share</Button>
         </div>
     </div>
+</div>
+<div v-else>
+    <h2>Good job, Line Collector!! You helped Vashti collect all different kinds of lines! Now Vashti, and YOU, can use these lines as inspiration to create all sorts of art.</h2>
+    <h2>Here's a story to help you remember your art adventure!</h2>
+    <Button :click="() => { seenIntro = true }" variant="ok">Next</Button>
 </div>
 </template>
 
