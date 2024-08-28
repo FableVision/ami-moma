@@ -17,12 +17,12 @@ const screens = {
 }
 
 const screenBackgrounds = {
-  Home: "/public/images/bg_login.png",
-  Register: "/public/images/bg_login.png",
-  Login: "/public/images/bg_login.png",
-  ChallengeSelect: "/public/images/bg_challenge_02.png",
-  ChallengeSubmit: "/public/images/bg_challenge_02.png",
-  ChallengeComplete: "/public/images/bg_challenge_02.png"
+  Home: new URL("/public/images/bg_login.png", import.meta.url).href,
+  Register: new URL("/public/images/bg_login.png", import.meta.url).href,
+  Login: new URL("/public/images/bg_login.png", import.meta.url).href,
+  ChallengeSelect: new URL("/public/images/bg_challenge_02.png", import.meta.url).href,
+  ChallengeSubmit: new URL("/public/images/bg_challenge_02.png", import.meta.url).href,
+  ChallengeComplete: new URL("/public/images/bg_challenge_02.png", import.meta.url).href
 }
 </script>
 
