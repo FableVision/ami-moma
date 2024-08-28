@@ -89,10 +89,10 @@ function finish() {
 <div v-if="storyTemplates.length > 0 && responses.length > 0">
     <h2 v-for="sentence in storyTemplates[currentPageIndex].sentences">{{ templatedSentence(sentence, currentPageIndex) }}</h2>
     <div class="button-container">    
-        <Button v-if="currentPageIndex < storyTemplates.length - 1" :click="() => {currentPageIndex++}">Next</Button>
+        <Button v-if="currentPageIndex < storyTemplates.length - 1" :click="() => {currentPageIndex++}" variant="ok">Next</Button>
         <div v-else class="button-row">
-            <Button :click="finish">Return Home</Button>
-            <Button :click="generateSharePDF">Share</Button>
+            <Button :click="finish" variant="navigate">Return Home</Button>
+            <Button :click="generateSharePDF" variant="navigate">Share</Button>
         </div>
     </div>
 </div>

@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue'
 import { store } from './store';
 import Home from './screens/Home.vue'
 import Register from './screens/Register.vue';
@@ -16,18 +15,41 @@ const screens = {
   ChallengeSubmit,
   ChallengeComplete
 }
+
+const screenBackgrounds = {
+  Home: "/public/images/bg_login.png",
+  Register: "/public/images/bg_login.png",
+  Login: "/public/images/bg_login.png",
+  ChallengeSelect: "/public/images/bg_challenge_02.png",
+  ChallengeSubmit: "/public/images/bg_challenge_02.png",
+  ChallengeComplete: "/public/images/bg_challenge_02.png"
+}
 </script>
 
 <template>
-  <header>
-    <h1>Line Collector</h1>
-  </header>
-  <main>
-    <component v-bind:is="screens[store.currentScreen]"></component>
-  </main>
+  <img class='background' :src="screenBackgrounds[store.currentScreen]">
+    <header>
+      <img class="logo" src="/public/images/linecollector.png">
+    </header>
+    <main>
+      <component v-bind:is="screens[store.currentScreen]"></component>
+    </main>
 </template>
 
 <style scoped>
+.background {
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: -1;
+  height: 100vh;
+  width: auto;
+}
+
+.logo {
+  max-width: 60vw;
+}
+
 header {
   text-align: center;
 }

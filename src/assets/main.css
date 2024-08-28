@@ -15,4 +15,5 @@
   flex-direction: column;
   justify-content: center;
   height: 100dvh;
+  align-items: center;
 }

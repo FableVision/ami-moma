@@ -65,18 +65,19 @@ function selectChallenge(challengeId) {
 <template>
     <h1>{{ store.userDisplayName }}, which challenge card are you working on?</h1>
     <div class="challenge-button-container" v-if="user.username">
-        <Button v-for="c in challenges" :key="c.id" :disabled="hasCompletedChallenge(c)" :click="() => selectChallenge(c.id)">{{ c.id }}</Button>
+        <Button v-for="c in challenges" :key="c.id" :disabled="hasCompletedChallenge(c)" :click="() => selectChallenge(c.id)" :variant="`card-`+ ((c.id - 1) % 3 + 1)">{{ c.id }}</Button>
     </div>
     <div class="action-button-container" v-if="user.username">
-        <Button :click="logOut">Done for now</Button>
-        <Button :disabled="!hasCompletedAnyChallenges()" :click="() => { cancelTimeout(); store.goToChallengeComplete() }">Complete my collection!</Button>
+        <Button :click="logOut" variant="navigate">Done for now</Button>
+        <Button :disabled="!hasCompletedAnyChallenges()" :click="() => { cancelTimeout(); store.goToChallengeComplete() }" variant="navigate">Complete my collection!</Button>
     </div>
 </template>
 
 <style>
 .challenge-button-container {
     display: flex;
-    gap: 10px;
+    gap: 25px;
+    margin-bottom: 20px;
 }
 
 .action-button-container {

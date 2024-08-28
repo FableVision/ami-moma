@@ -24,12 +24,14 @@ onUpdated(() => {
 <template>
     <h1>{{ questionText.replaceAll("\\n", "\n") }}</h1>
     <textarea v-model="input" ref="textarea" autocapitalize="off"></textarea>
-    <Button :click="() => {$emit('submit', input); input = ''}" :disabled="input === ''">{{ btnText }}</Button>
+    <Button :click="() => {$emit('submit', input); input = ''}" :disabled="input === ''" variant="ok">{{ btnText }}</Button>
 </template>
 
 <style scoped>
 textarea {
-    font-size: large;
+    font-size: x-large;
+    font-family: 'MoMA Sans-Bold';
+    width: 300px;
 }
 
 h1 {

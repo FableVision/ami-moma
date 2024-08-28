@@ -36,8 +36,8 @@ function logOut() {
 
 <template>
 <div class="header">
-    <span class="nav-back"><Button :click="() => store.goToChallengeSelect()">‹</Button>Challenge {{ store.currentChallengeId }}</span>
-    <Button :click="logOut">Done for now</Button>
+    <Button :click="() => store.goToChallengeSelect()" variant="navigate"><span class="arrow">←</span> Challenge {{ store.currentChallengeId }}</Button>
+    <Button :click="logOut" variant="navigate">Done for now</Button>
 </div>
 <div class="form-container" v-if="questions.length > 0 && currentQuestionIndex < questions.length">
     <Form v-if="questions[currentQuestionIndex]['options'] === undefined" btn-text="✔" :question-text="questions[currentQuestionIndex].question" @submit="incrementQuestion"></Form>
@@ -52,11 +52,12 @@ function logOut() {
     width: 100%;
     position: absolute;
     top: 0;
-    padding: 20px;
+    padding: 10px;
 }
 
-.nav-back button {
-    margin-right: 10px;
+.arrow {
+    font-family: system-ui;
+    font-weight: 900;
 }
 
 .form-container {
