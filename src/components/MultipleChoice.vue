@@ -14,10 +14,10 @@ const input = ref([])
 
 <template>
     <h1>{{ questionText.replaceAll("\\n", "\n") }}</h1>
-    <div class="multiple-choice-container">
+    <div class="multiple-choice-container" :style="maxChoices !== 1 ? { gridTemplateColumns: 'repeat(3, 1fr)' } : null">
         <label v-for="option in options">
             <input v-if="maxChoices === 1" type="radio" :value="option" v-model="input[0]"/>
-            <input v-else type="checkbox" :id="option" :value="option" v-model="input" :style="{ gridTemplateColumns: 'repeat(2, 1fr)' }">
+            <input v-else type="checkbox" :id="option" :value="option" v-model="input">
             <label :for="option">{{ option }}</label>
         </label>
     </div>
