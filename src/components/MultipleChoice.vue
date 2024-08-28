@@ -17,11 +17,11 @@ const input = ref([])
     <div class="multiple-choice-container">
         <label v-for="option in options">
             <input v-if="maxChoices === 1" type="radio" :value="option" v-model="input[0]"/>
-            <input v-else type="checkbox" :id="option" :value="option" v-model="input">
+            <input v-else type="checkbox" :id="option" :value="option" v-model="input" :style="{ gridTemplateColumns: repeat(2, 1fr) }">
             <label :for="option">{{ option }}</label>
         </label>
     </div>
-    <Button :click="() => {$emit('submit', input.toString().toLowerCase()); input.length = 0}" :disabled="input.length === 0">{{ btnText }}</Button>
+    <Button :click="() => {$emit('submit', input.toString().toLowerCase()); input.length = 0}" :disabled="input.length === 0" variant="ok">{{ btnText }}</Button>
 </template>
 
 <style scoped>
@@ -32,16 +32,18 @@ h1 {
 
 input {
     margin: 0 5px;
+    width: 20px;
+    height: 20px;
 }
 
 .multiple-choice-container {
-    display: flex;
-    gap: 10px;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    gap: 8px;
 }
 
 label {
-    font-size: large;
+    font-size: x-large;
+    align-items: center;
+    display: flex;
 }
 </style>

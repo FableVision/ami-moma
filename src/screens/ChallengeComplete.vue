@@ -107,6 +107,7 @@ function finish() {
 
 .button-row {
     display: flex;
+    flex-direction: column;
     gap: 10px;
 }
 
