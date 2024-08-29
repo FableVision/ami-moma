@@ -27,23 +27,26 @@ const screenBackgrounds = {
 </script>
 
 <template>
-  <img class='background' :src="screenBackgrounds[store.currentScreen]">
-    <header>
-      <img class="logo" src="/public/images/linecollector.png">
-    </header>
-    <main>
-      <component v-bind:is="screens[store.currentScreen]"></component>
-    </main>
+  <div class='background' :style="{ backgroundImage: 'url(' + screenBackgrounds[store.currentScreen] + ')' }"></div>
+  <header>
+    <img class="logo" src="/public/images/linecollector.png">
+  </header>
+  <main>
+    <component v-bind:is="screens[store.currentScreen]"></component>
+  </main>
 </template>
 
 <style scoped>
 .background {
   top: 0;
   left: 0;
-  position: absolute;
   z-index: -1;
-  height: 100vh;
-  width: auto;
+  position: absolute;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
 }
 
 .logo {
